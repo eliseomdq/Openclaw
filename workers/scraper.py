@@ -45,13 +45,13 @@ def scrape_google_maps(query: str, ciudad: str, max_results: int = 50) -> list[d
                 phone = ""
                 phone_el = page.locator('[data-item-id^="phone"]')
                 if phone_el.count() > 0:
-                    phone = phone_el.first.get_attribute("data-item-id", "").replace("phone:tel:", "")
+                    phone = (phone_el.first.get_attribute("data-item-id") or "").replace("phone:tel:", "")
 
                 # Sitio web
                 website = ""
                 web_el = page.locator('[data-item-id="authority"]')
                 if web_el.count() > 0:
-                    website = web_el.first.get_attribute("href", "")
+                    website = web_el.first.get_attribute("href") or ""
 
                 # Categoria
                 category = ""
