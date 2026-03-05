@@ -14,6 +14,6 @@ EVOLUTION_API_KEY = os.getenv("EVOLUTION_API_KEY", "")
 EVOLUTION_INSTANCE = os.getenv("EVOLUTION_INSTANCE", "openclaw")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
 
-REDIS_URL = "redis://localhost:6379/0"
-DATABASE_URL = "sqlite:///openclaw.db"
-PREVIEWS_DIR = "previews"
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///openclaw.db")
+PREVIEWS_DIR = os.getenv("PREVIEWS_DIR", "previews")
