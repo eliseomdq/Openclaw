@@ -28,6 +28,14 @@ def _mock_session():
     finally:
         session.close()
 
+@pytest.fixture
+def test_db():
+    session = _Session()
+    try:
+        yield session
+    finally:
+        session.close()
+
 
 def test_stats_endpoint_empty_db():
     with patch("dashboard.app.get_session", _mock_session):
@@ -47,3 +55,14 @@ def test_dashboard_returns_html():
         response = client.get("/")
         assert response.status_code == 200
         assert "OpenClaw Dashboard" in response.text
+
+def test_mark_converted_not_found(test_db):
+    @contextmanager
+    def mock_session():
+        yield test_db
+
+    with patch("dashboard.app.get_session", mock_session):
+        from dashboard.app import app
+        client = TestClient(app)
+        response = client.post("/api/mark-converted/99999")
+        assert response.status_code == 404

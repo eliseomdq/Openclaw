@@ -1,3 +1,4 @@
+import html as html_module
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from db.database import get_session, init_db
@@ -70,13 +71,17 @@ def dashboard():
 
         rows = ""
         for b in businesses:
-            preview = f'<a href="{b.url_preview}" target="_blank" style="color:#00d4ff">Ver</a>' if b.url_preview else "-"
-            nota = b.nota_auditoria or "-"
+            url = b.url_preview or ""
+            # Only allow http/https URLs to prevent javascript: injection
+            if url and not url.startswith(("http://", "https://")):
+                url = ""
+            preview = f'<a href="{html_module.escape(url)}" target="_blank" style="color:#00d4ff">Ver</a>' if url else "-"
+            nota = html_module.escape(b.nota_auditoria or "-")
             rows += ROW_TEMPLATE.format(
-                nombre=b.nombre or "-",
-                ciudad=b.ciudad or "-",
+                nombre=html_module.escape(b.nombre or "-"),
+                ciudad=html_module.escape(b.ciudad or "-"),
                 nota=nota,
-                estado=b.estado or "-",
+                estado=html_module.escape(b.estado or "-"),
                 preview=preview,
             )
 
@@ -103,10 +108,12 @@ def stats():
 
 @app.post("/api/mark-converted/{business_id}")
 def mark_converted(business_id: int):
+    from fastapi import HTTPException
     with get_session() as session:
         b = session.get(Business, business_id)
-        if b:
-            b.convertido = True
-            b.estado = "converted"
-            session.commit()
-        return {"ok": True}
+        if not b:
+            raise HTTPException(status_code=404, detail="Business not found")
+        b.convertido = True
+        b.estado = "converted"
+        session.commit()
+    return {"ok": True}
