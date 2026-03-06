@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotiseria El Tercer Tiempo - Mar del Plata</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background-color: #ffffff;
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: #1a1a1a;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ff6b35;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+
+        .nav-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #ffffff;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero .slogan {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background-color: #ffffff;
+            color: #ff6b35;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #1a1a1a;
+            font-weight: 800;
+        }
+
+        /* Servicios */
+        .servicios {
+            background-color: #f8f8f8;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .servicio-card {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .servicio-card h3 {
+            color: #ff6b35;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .servicio-card p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Por que elegirnos */
+        .por-que {
+            background-color: #ffffff;
+        }
+
+        .puntos-fuertes {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .punto-fuerte {
+            text-align: center;
+            padding: 2rem;
+            background-color: #f8f8f8;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .punto-fuerte:hover {
+            background-color: #ff6b35;
+            color: #ffffff;
+        }
+
+        .punto-fuerte h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ff6b35;
+        }
+
+        .punto-fuerte:hover h3 {
+            color: #ffffff;
+        }
+
+        .punto-fuerte p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .punto-fuerte:hover p {
+            color: #ffffff;
+        }
+
+        /* Contacto */
+        .contacto {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+        }
+
+        .contacto h2 {
+            color: #ff6b35;
+        }
+
+        .contacto-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .contacto-info {
+            text-align: center;
+        }
+
+        .contacto-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ff6b35;
+        }
+
+        .contacto-info p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .telefono-link {
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .formulario-contacto {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .formulario-contacto input,
+        .formulario-contacto textarea {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .formulario-contacto input::placeholder,
+        .formulario-contacto textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .formulario-contacto textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .formulario-contacto button {
+            padding: 1rem;
+            background-color: #ff6b35;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .formulario-contacto button:hover {
+            background-color: #f7931e;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            text-align: center;
+            padding: 2rem;
+            border-top: 3px solid #ff6b35;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-year {
+            color: #ff6b35;
+            font-weight: 700;
+        }
+
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero .slogan {
+                font-size: 1.5rem;
+            }
+
+            .servicios-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .puntos-fuertes {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .contacto-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            section {
+                padding: 5rem 2rem;
+            }
+
+            section h2 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .servicios-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+        }
+
+        /* Animaciones suaves */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .servicio-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .punto-fuerte {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🔥 El Tercer Tiempo</div>
+            <ul class="nav-links">
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#por-que">Por qué elegirnos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <button class="nav-toggle">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Rotiseria El Tercer Tiempo</h1>
+        <p class="slogan">La mejor rotiseria de Mar del Plata</p>
+        <p class="slogan" style="font-size: 1rem; opacity: 0.85; margin-bottom: 2rem;">Comida casera, fresca y deliciosa todos los días</p>
+        <a href="#contacto" class="cta-button">Hacé tu pedido ahora</a>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="servicios">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <div class="servicios-grid">
+                <div class="servicio-card">
+                    <h3>🍗 Pollos a la Rotiseria</h3>
+                    <p>Pollos jugosos, bien doraditos, hechos en nuestro horno tradicional. Incluye salsa casera y papas al horno.</p>
+                </div>
+                <div class="servicio-card">
+                    <h3>🥩 Carnes Asadas</h3>
+                    <p>Costillas, choripán, vacío y tira de asado. Carne de primera calidad, bien sazonada y a punto.</p>
+                </div>
+                <div class="servicio-card">
+                    <h3>📦 Bandejas para eventos</h3>
+                    <p>Pedidos especiales para fiestas, cumpleaños y reuniones. Consultá nuestras opciones de catering.</p>
+                </div>
+                <div class="servicio-card">
+                    <h3>🛵 Delivery a domicilio</h3>
+                    <p>Entrega rápida en Mar del Plata. Comida caliente en tu casa en menos de 45 minutos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Por qué elegirnos -->
+    <section id="por-que" class="por-que">
+        <div class="container">
+            <h2>Por qué elegirnos</h2>
+            <div class="puntos-fuertes">
+                <div class="punto-fuerte">
+                    <h3>🎯 Calidad Garantizada</h3>
+                    <p>Usamos ingredientes frescos y de primera calidad. Cocinamos con amor y dedicación cada plato.</p>
+                </div>
+                <div class="punto-fuerte">
+                    <h3>⚡ Rapidez</h3>
+                    <p>Sin esperas innecesarias. Tu pedido estará listo en el tiempo acordado, siempre.</p>
+                </div>
+                <div class="punto-fuerte">
+                    <h3>💰 Precios justos</h3>
+                    <p>Ofrecemos la mejor relación calidad-precio de Mar del Plata. Comer bien no tiene que ser caro.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="contacto">
+        <div class="container">
+            <h2>Contactanos</h2>
+            <div class="contacto-content">
+                <div class="contacto-info">
+                    <h3>Llamanos ahora</h3>
+                    <p>Hacé tu pedido o consultá por promociones</p>
+                    <a href="tel:02235457860" class="telefono-link">02235457860</a>
+                    <p style="margin-top: 1.5rem; font-size: 0.95rem;">📍 Mar del Plata, Buenos Aires</p>
+                    <p style="font-size: 0.95rem;">⏰ Lunes a domingo de 11:00 a 23:00</p>
+                </div>
+                <div>
+                    <h3 style="color: #ff6b35; margin-bottom: 1.5rem;">Envianos un mensaje</h3>
+                    <form class="formulario-contacto">
+                        <input type="text" placeholder="Tu nombre" required>
+                        <input type="email" placeholder="Tu email" required>
+                        <input type="text" placeholder="
