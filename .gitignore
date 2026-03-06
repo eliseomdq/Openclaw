@@ -27,6 +27,9 @@ previews/*.html
 campaigns/*.yaml
 campaigns/*.yml
 
+# Claude Code local settings
+.claude/
+
 # IDE
 .vscode/
 .idea/
