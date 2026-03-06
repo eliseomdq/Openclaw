@@ -69,18 +69,25 @@ def generate_website(business_id: int):
     """Genera sitio web con Claude y lo guarda. Encola deploy."""
     from workers.deployer import deploy_website
 
+    path = None
     with get_session() as session:
         b = session.get(Business, business_id)
         if not b:
             return {"error": "Business not found"}
 
         logger.info(f"Generando sitio para: {b.nombre}")
-        html = generate_html(b.nombre, b.categoria, b.ciudad, b.telefono, b.nota_auditoria)
+        try:
+            html = generate_html(b.nombre, b.categoria, b.ciudad, b.telefono, b.nota_auditoria)
+            path = save_preview(b.id, html)
+            b.html_generado = html
+            b.estado = "generated"
+            session.commit()
+        except Exception as e:
+            logger.error(f"Error generando sitio para {b.nombre}: {e}")
+            b.estado = "error"
+            session.commit()
+            raise
 
-        path = save_preview(b.id, html)
-        b.html_generado = html
-        b.estado = "generated"
-        session.commit()
-
-    deploy_website.delay(business_id, path)
+    if path:
+        deploy_website.delay(business_id, path)
     return {"id": business_id, "path": path}
